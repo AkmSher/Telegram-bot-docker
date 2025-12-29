@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  telegram-bot:
+    # Указываем, что образ нужно собрать из текущей директории (.)
+    build: .
+    # Задаем имя контейнеру, чтобы его было легче найти
+    container_name: java-telegram-bot
+    # Политика перезапуска: если бот упадет или сервер перезагрузится, докер запустит его снова
+    restart: unless-stopped
+    # Передаем переменные окружения внутрь контейнера
+    environment:
+      - BOT_TOKEN=${BOT_TOKEN}
+      - BOT_USERNAME=${BOT_USERNAME}
+    # Ограничение ресурсов (опционально, но полезно для Java)
+    deploy:
+      resources:
+        limits:
+          memory: 512M
